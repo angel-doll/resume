@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Engineer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --accent-blue: #00d2ff;
+            --text-white: #e0e0e0;
+            --code-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* 程式碼背景流動效果 */
+        .code-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--code-color);
+            z-index: -1;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* 導覽列 */
+        nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav a {
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.3);
+            margin: 15px 0;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-blue);
+            transform: scale(1.3);
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 10%;
+            box-sizing: border-box;
+        }
+
+        /* 1. 自我介紹 */
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 0 20px var(--accent-blue);
+            margin-bottom: 30px;
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px var(--accent-blue); }
+            to { box-shadow: 0 0 30px #0095ff; }
+        }
+
+        .typewriter h1 {
+            overflow: hidden;
+            border-right: .15em solid var(--accent-blue);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-blue); }
+        }
+
+        /* 2. 經歷區塊 */
+        .timeline {
+            border-left: 2px solid var(--accent-blue);
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .experience-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        .experience-card:hover {
+            border-color: var(--accent-blue);
+            background: rgba(0, 210, 255, 0.1);
+        }
+
+        /* 3. 專長區塊 */
+        .skills-container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            background: #222;
+            height: 10px;
+            border-radius: 5px;
+            margin: 10px 0 25px;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border-radius: 5px;
+            box-shadow: 0 0 10px var(--accent-blue);
+            width: 0;
+            transition: 2s ease-out;
+        }
+
+        /* 4. 未來期許 */
+        .future-box {
+            text-align: center;
+            position: relative;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="code-bg" id="bg-code">
+    <!-- 背景程式碼會由 JS 生成 -->
+</div>
+
+<nav>
+    <ul>
+        <li><a href="#intro" class="active"></a></li>
+        <li><a href="#experience"></a></li>
+        <li><a href="#skills"></a></li>
+        <li><a href="#future"></a></li>
+    </ul>
+</nav>
+
+<section id="intro">
+    <img src="ChatGPT Image 2026年4月30日 下午08_06_49.jpg" alt="Profile" class="profile-img">
+    <div class="typewriter">
+        <h1>你好，我是 陳靜如</h1>
+    </div>
+    <p data-aos="fade-up" style="margin-top:20px; color: #aaa;">致力於 AI 與機器學習的創新工程師</p>
+</section>
+
+<section id="experience">
+    <h2 data-aos="fade-right">專業經歷</h2>
+    <div class="timeline">
+        <div class="experience-card" data-aos="slide-left">
+            <h3>資深系統架構師</h3>
+            <p>2020 - 至今 | 領航科技集團</p>
+            <p>負責開發大規模 AI 模型部署與自動化工作流優化。</p>
+        </div>
+        <div class="experience-card" data-aos="slide-right">
+            <h3>後端開發工程師</h3>
+            <p>2015 - 2020 | 創新數據實驗室</p>
+            <p>專注於分散式系統與大數據處理架構設計。</p>
+        </div>
+    </div>
+</section>
+
+<section id="skills">
+    <h2 data-aos="zoom-in">核心技術</h2>
+    <div class="skills-container">
+        <div>Python / PyTorch <span style="float:right">90%</span></div>
+        <div class="skill-bar"><div class="skill-progress" id="p1"></div></div>
+        
+        <div>NLP / 自然語言處理 <span style="float:right">85%</span></div>
+        <div class="skill-bar"><div class="skill-progress" id="p2"></div></div>
+
+        <div>Computer Vision <span style="float:right">80%</span></div>
+        <div class="skill-bar"><div class="skill-progress" id="p3"></div></div>
+    </div>
+</section>
+
+<section id="future">
+    <div class="future-box" data-aos="fade-up">
+        <h2 style="font-size: 3rem; color: var(--accent-blue);">未來期許</h2>
+        <p style="max-width: 600px; line-height: 1.8;">
+            在 AI 浪潮中，我期許能持續探索人類智慧與機器學習的交界點。
+            不僅是撰寫代碼，更希望能創造出能實質改善生活、具備溫度與倫理的智能系統。
+            讓未來科技成為每個人最可靠的夥伴。
+        </p>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    // 初始化 AOS 動畫庫
+    AOS.init({ duration: 1000 });
+
+    // 動態生成背景代碼
+    const codeContainer = document.getElementById('bg-code');
+    const codeSnippets = [
+        "import tensorflow as tf", "const ai = new Brain();", "while(learning) { evolve(); }", 
+        "function neural_link()", "model.predict(input_data);", "optimizer.step();",
+        "def future_ai():", "return vision * effort;", "git commit -m 'ai'","void process_data()"
+    ];
+
+    for(let i=0; i<50; i++) {
+        let div = document.createElement('div');
+        div.style.position = 'absolute';
+        div.style.left = Math.random() * 100 + '%';
+        div.style.top = Math.random() * 100 + '%';
+        div.innerText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+        div.style.opacity = Math.random() * 0.5;
+        codeContainer.appendChild(div);
+    }
+
+    // 捲動觸發進度條動畫
+    window.addEventListener('scroll', () => {
+        const skillsSection = document.getElementById('skills');
+        const rect = skillsSection.getBoundingClientRect();
+        if(rect.top < window.innerHeight && rect.bottom > 0) {
+            document.getElementById('p1').style.width = '90%';
+            document.getElementById('p2').style.width = '85%';
+            document.getElementById('p3').style.width = '80%';
+        }
+    });
+</script>
+
+</body>
+</html>
