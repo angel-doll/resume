@@ -3,272 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Engineer Portfolio</title>
+    <title>Anna's Portfolio | AI & Frontend Journey</title>
+    
+    <!-- 外部資源庫 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
     <style>
         :root {
-            --bg-color: #050505;
-            --accent-blue: #00d2ff;
-            --text-white: #e0e0e0;
-            --code-color: rgba(255, 255, 255, 0.05);
+            --bg-dark: #020205;
+            --accent-blue: #00f2ff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-gray: #b0b0b0;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-white);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            scroll-behavior: smooth;
+            margin: 0; padding: 0;
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Segoe UI', 'PingFang TC', sans-serif;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* 程式碼背景流動效果 */
-        .code-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: var(--code-color);
-            z-index: -1;
-            overflow: hidden;
-            user-select: none;
+        /* Three.js 背景容器 */
+        #canvas-container {
+            position: fixed; top: 0; left: 0; z-index: -1;
+            width: 100%; height: 100%;
         }
 
         /* 導覽列 */
         nav {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
             z-index: 100;
         }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
         nav a {
-            display: block;
-            width: 12px;
-            height: 12px;
-            background: rgba(255,255,255,0.3);
-            margin: 15px 0;
-            border-radius: 50%;
-            transition: 0.3s;
+            display: block; width: 12px; height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 20px 0; border-radius: 50%; transition: 0.3s;
         }
-
         nav a:hover, nav a.active {
             background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue);
-            transform: scale(1.3);
+            box-shadow: 0 0 15px var(--accent-blue);
+            transform: scale(1.5);
         }
 
         section {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 50px 10%;
-            box-sizing: border-box;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 80px 10%; box-sizing: border-box;
         }
 
-        /* 1. 自我介紹 */
+        /* --- 1. 自我介紹區 --- */
         .profile-img {
-            width: 250px;
-            height: 250px;
-            border-radius: 20px;
-            object-fit: cover;
+            width: 280px; height: 280px;
+            border-radius: 20px; object-fit: cover;
             border: 2px solid var(--accent-blue);
-            box-shadow: 0 0 20px var(--accent-blue);
-            margin-bottom: 30px;
-            animation: glow 3s infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 10px var(--accent-blue); }
-            to { box-shadow: 0 0 30px #0095ff; }
-        }
-
-        .typewriter h1 {
-            overflow: hidden;
-            border-right: .15em solid var(--accent-blue);
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .15em;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent-blue); }
-        }
-
-        /* 2. 經歷區塊 */
-        .timeline {
-            border-left: 2px solid var(--accent-blue);
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .experience-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
             margin-bottom: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            transition: 0.3s;
         }
 
-        .experience-card:hover {
-            border-color: var(--accent-blue);
-            background: rgba(0, 210, 255, 0.1);
+        .hero-text { text-align: center; }
+        .typing-container { font-size: 1.5rem; color: var(--accent-blue); height: 1.6em; }
+
+        .bio-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 30px; border-radius: 15px;
+            margin-top: 30px; max-width: 700px;
+            border-left: 4px solid var(--accent-blue);
         }
 
-        /* 3. 專長區塊 */
-        .skills-container {
-            width: 100%;
-            max-width: 600px;
+        /* --- 2. 專長區 (圓形圖示 + 進度條) --- */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; width: 100%;
         }
-
-        .skill-bar {
-            width: 100%;
-            background: #222;
-            height: 10px;
-            border-radius: 5px;
-            margin: 10px 0 25px;
+        .skill-item {
+            text-align: center; transition: 0.5s;
         }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-            border-radius: 5px;
+        .skill-circle {
+            width: 80px; height: 80px;
+            background: var(--glass-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px; transition: 0.5s;
+            font-weight: bold; font-size: 0.8rem;
+        }
+        .skill-item:hover .skill-circle {
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 25px var(--accent-blue);
+        }
+        .skill-bar-bg {
+            background: #222; height: 8px; border-radius: 4px;
+            overflow: hidden; margin-top: 10px;
+        }
+        .skill-bar-fill {
+            height: 100%; width: 0;
+            background: linear-gradient(90deg, #00d2ff, #00f2ff);
             box-shadow: 0 0 10px var(--accent-blue);
-            width: 0;
-            transition: 2s ease-out;
+            transition: width 2s cubic-bezier(0.1, 0, 0.2, 1);
         }
 
-        /* 4. 未來期許 */
-        .future-box {
-            text-align: center;
-            position: relative;
+        /* --- 3. 經歷時間軸 --- */
+        .timeline {
+            position: relative; max-width: 800px; width: 100%;
+            border-left: 2px solid var(--accent-blue);
+            padding-left: 40px;
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 50px;
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -49px; top: 0;
+            width: 16px; height: 16px; background: var(--accent-blue);
+            border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue);
+        }
+        .exp-card {
+            background: var(--glass-bg); padding: 20px;
+            border-radius: 10px; border: 1px solid rgba(0, 242, 255, 0.1);
         }
 
-        .particles {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
+        /* --- 4. 未來期許 (粒子匯聚感) --- */
+        #future { text-align: center; overflow: hidden; }
+        .future-content {
+            position: relative; z-index: 2; padding: 40px;
+            transition: 0.5s; cursor: pointer;
         }
+        .future-content:hover {
+            text-shadow: 0 0 20px var(--accent-blue);
+            transform: scale(1.05);
+        }
+
+        h2 { font-size: 2.5rem; margin-bottom: 50px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="code-bg" id="bg-code">
-    <!-- 背景程式碼會由 JS 生成 -->
-</div>
+<div id="canvas-container"></div>
 
 <nav>
-    <ul>
-        <li><a href="#intro" class="active"></a></li>
-        <li><a href="#experience"></a></li>
-        <li><a href="#skills"></a></li>
-        <li><a href="#future"></a></li>
-    </ul>
+    <a href="#intro" class="active"></a>
+    <a href="#skills"></a>
+    <a href="#experience"></a>
+    <a href="#future"></a>
 </nav>
 
+<!-- 1. 首頁/自我介紹 -->
 <section id="intro">
-    <img src="ChatGPT Image 2026年4月30日 下午08_06_49.jpg" alt="Profile" class="profile-img">
-    <div class="typewriter">
-        <h1>你好，我是 陳靜如</h1>
+    <img src="ChatGPT Image 2026年4月30日 下午08_06_49.jpg" alt="Anna" class="profile-img" data-aos="fade-down">
+    <div class="hero-text">
+        <h3 style="letter-spacing: 5px;">Welcome~</h3>
+        <h1 style="font-size: 3rem; margin: 10px 0;">ANNA'S SELF-INTRODUCE</h1>
+        <div class="typing-container">
+            <span id="typed-text"></span>
+        </div>
     </div>
-    <p data-aos="fade-up" style="margin-top:20px; color: #aaa;">致力於 AI 與機器學習的創新工程師</p>
-</section>
-
-<section id="experience">
-    <h2 data-aos="fade-right">專業經歷</h2>
-    <div class="timeline">
-        <div class="experience-card" data-aos="slide-left">
-            <h3>資深系統架構師</h3>
-            <p>2020 - 至今 | 領航科技集團</p>
-            <p>負責開發大規模 AI 模型部署與自動化工作流優化。</p>
-        </div>
-        <div class="experience-card" data-aos="slide-right">
-            <h3>後端開發工程師</h3>
-            <p>2015 - 2020 | 創新數據實驗室</p>
-            <p>專注於分散式系統與大數據處理架構設計。</p>
-        </div>
+    <div class="bio-card" data-aos="fade-up">
+        <p>對於由無中生有的建構程式有濃厚的興趣，學習新的領域，專注於建立自己的知識樹，建構知識架構，再活化應用，不退於潮流之後。</p>
+        <p>目前在某精密加工廠擔任加工程式編譯及立體圖繪製工程師，對於前端與AI有好奇與興趣，正在前往轉職前端的路上。</p>
+        <p><strong>學歷：</strong>銘傳大學會計系畢業</p>
     </div>
 </section>
 
+<!-- 2. 專業技能 -->
 <section id="skills">
-    <h2 data-aos="zoom-in">核心技術</h2>
-    <div class="skills-container">
-        <div>Python / PyTorch <span style="float:right">90%</span></div>
-        <div class="skill-bar"><div class="skill-progress" id="p1"></div></div>
-        
-        <div>NLP / 自然語言處理 <span style="float:right">85%</span></div>
-        <div class="skill-bar"><div class="skill-progress" id="p2"></div></div>
-
-        <div>Computer Vision <span style="float:right">80%</span></div>
-        <div class="skill-bar"><div class="skill-progress" id="p3"></div></div>
+    <h2 data-aos="fade-up">專業技能</h2>
+    <div class="skills-grid">
+        <div class="skill-item" data-aos="flip-left">
+            <div class="skill-circle">NX CAD</div>
+            <span>3D 建模設計</span>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-percent="90%"></div></div>
+        </div>
+        <div class="skill-item" data-aos="flip-left" data-aos-delay="100">
+            <div class="skill-circle">NX CAM</div>
+            <span>3D 工業加工</span>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-percent="85%"></div></div>
+        </div>
+        <div class="skill-item" data-aos="flip-left" data-aos-delay="200">
+            <div class="skill-circle">JAVA/C++</div>
+            <span>前端程式設計</span>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-percent="75%"></div></div>
+        </div>
+        <div class="skill-item" data-aos="flip-left" data-aos-delay="300">
+            <div class="skill-circle">HTML/CSS</div>
+            <span>前端網頁設計</span>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" data-percent="80%"></div></div>
+        </div>
     </div>
 </section>
 
+<!-- 3. 經歷總覽 -->
+<section id="experience">
+    <h2 data-aos="fade-up">經歷總覽</h2>
+    <div class="timeline">
+        <div class="timeline-item" data-aos="slide-left">
+            <div class="exp-card">
+                <h3>工業技術工程師 (10年)</h3>
+                <p>軟體工程師、3D CAD建模、3D CAM加工工程師</p>
+            </div>
+        </div>
+        <div class="timeline-item" data-aos="slide-right">
+            <div class="exp-card">
+                <h3>會計產業 (5年)</h3>
+                <p>公司會計人員專職管理與財務分析</p>
+            </div>
+        </div>
+        <div class="timeline-item" data-aos="slide-left">
+            <div class="exp-card">
+                <h3>教育產業 (5年)</h3>
+                <p>國中數學老師 & 補習班主任</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. 未來期許 -->
 <section id="future">
-    <div class="future-box" data-aos="fade-up">
-        <h2 style="font-size: 3rem; color: var(--accent-blue);">未來期許</h2>
-        <p style="max-width: 600px; line-height: 1.8;">
-            在 AI 浪潮中，我期許能持續探索人類智慧與機器學習的交界點。
-            不僅是撰寫代碼，更希望能創造出能實質改善生活、具備溫度與倫理的智能系統。
-            讓未來科技成為每個人最可靠的夥伴。
+    <div class="future-content" data-aos="zoom-in">
+        <h2>未來期許</h2>
+        <p style="font-size: 1.4rem; line-height: 1.8; max-width: 800px;">
+            在快速變化的 AI 未來，期許自己能著重於軟體與硬體的結合開發，<br>
+            使得生活中的 AI 應用更加的智能、更加人性化。
         </p>
     </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-    // 初始化 AOS 動畫庫
-    AOS.init({ duration: 1000 });
+    // 1. 初始化 AOS
+    AOS.init({ duration: 1000, once: false });
 
-    // 動態生成背景代碼
-    const codeContainer = document.getElementById('bg-code');
-    const codeSnippets = [
-        "import tensorflow as tf", "const ai = new Brain();", "while(learning) { evolve(); }", 
-        "function neural_link()", "model.predict(input_data);", "optimizer.step();",
-        "def future_ai():", "return vision * effort;", "git commit -m 'ai'","void process_data()"
-    ];
+    // 2. 打字機動畫
+    new Typed('#typed-text', {
+        strings: ['Software QA Engineer', 'NX CAD/CAM Specialist', 'Future Frontend Developer'],
+        typeSpeed: 60, backSpeed: 30, loop: true
+    });
 
-    for(let i=0; i<50; i++) {
-        let div = document.createElement('div');
-        div.style.position = 'absolute';
-        div.style.left = Math.random() * 100 + '%';
-        div.style.top = Math.random() * 100 + '%';
-        div.innerText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-        div.style.opacity = Math.random() * 0.5;
-        codeContainer.appendChild(div);
+    // 3. Three.js 流動代碼粒子背景
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 2000;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for(let i=0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 10;
     }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    // 捲動觸發進度條動畫
+    const material = new THREE.PointsMaterial({
+        size: 0.005,
+        color: 0x00f2ff,
+        transparent: true,
+        opacity: 0.5
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, material);
+    scene.add(particlesMesh);
+    camera.position.z = 3;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.y += 0.001;
+        particlesMesh.rotation.x += 0.0005;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // 4. 進度條動畫觸發
     window.addEventListener('scroll', () => {
         const skillsSection = document.getElementById('skills');
-        const rect = skillsSection.getBoundingClientRect();
-        if(rect.top < window.innerHeight && rect.bottom > 0) {
-            document.getElementById('p1').style.width = '90%';
-            document.getElementById('p2').style.width = '85%';
-            document.getElementById('p3').style.width = '80%';
+        const sectionPos = skillsSection.getBoundingClientRect().top;
+        const screenPos = window.innerHeight / 1.3;
+
+        if(sectionPos < screenPos) {
+            document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                bar.style.width = bar.getAttribute('data-percent');
+            });
         }
     });
+
+    // 5. 滾動與導覽列聯動
+    window.onscroll = () => {
+        let current = "";
+        document.querySelectorAll("section").forEach((section) => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 100) {
+                current = section.getAttribute("id");
+            }
+        });
+        document.querySelectorAll("nav a").forEach((a) => {
+            a.classList.remove("active");
+            if (a.getAttribute("href").includes(current)) {
+                a.classList.add("active");
+            }
+        });
+    };
 </script>
 
 </body>
